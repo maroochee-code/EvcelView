@@ -361,6 +361,8 @@ class ExcelFunctionApp {
             scenarioData = gameDevDataScenario;
         } else if (scenarioId === 'inventory_mgmt' && typeof inventoryMgmtScenarioComplete !== 'undefined') {
             scenarioData = inventoryMgmtScenarioComplete;
+        } else if (scenarioId === 'project_analysis' && typeof projectAnalysisScenario !== 'undefined') {
+            scenarioData = projectAnalysisScenario;
         } else {
             this.showComingSoon(scenarioId);
             return;
