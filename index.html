@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Functions Hub - 직장인 필수 엑셀 함수</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 최상위 탭 네비게이션 -->
+        <div class="top-navigation">
+            <button class="mode-tab active" data-mode="functions">
+                <span class="tab-icon">📊</span>
+                <span class="tab-text">전체 함수</span>
+            </button>
+            <button class="mode-tab" data-mode="scenarios">
+                <span class="tab-icon">💼</span>
+                <span class="tab-text">업무 시나리오</span>
+            </button>
+        </div>
+
+        <!-- 사이드바 -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">📊</div>
+                <div class="logo-text">Excel Hub</div>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <span class="nav-icon">🏠</span>
+                        전체 함수
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-category="basic">
+                        <span class="nav-icon">📈</span>
+                        기본 함수
+                        <span class="difficulty-badge easy">쉬움</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-category="lookup">
+                        <span class="nav-icon">🔍</span>
+                        조회/참조
+                        <span class="difficulty-badge medium">보통</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-category="text">
+                        <span class="nav-icon">📝</span>
+                        텍스트 함수
+                        <span class="difficulty-badge easy">쉬움</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-category="date">
+                        <span class="nav-icon">📅</span>
+                        날짜/시간
+                        <span class="difficulty-badge medium">보통</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-category="logical">
+                        <span class="nav-icon">🤔</span>
+                        논리 함수
+                        <span class="difficulty-badge medium">보통</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-category="advanced">
+                        <span class="nav-icon">🧠</span>
+                        고급 함수
+                        <span class="difficulty-badge hard">어려움</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 메인 컨텐츠 -->
+        <div class="main-content">
+            <div class="header">
+                <div class="welcome-section">
+                    <span class="welcome-icon">📊</span>
+                    <h1 class="welcome-text">직장인 필수 엑셀 함수</h1>
+                </div>
+            </div>
+
+            <div class="search-section">
+                <input type="text" class="search-box" placeholder="함수명이나 기능으로 검색하세요... (예: VLOOKUP, 합계)" id="searchInput">
+                <button class="filter-btn active" data-filter="all">전체</button>
+                <button class="filter-btn" data-filter="popular">인기</button>
+                <button class="filter-btn" data-filter="easy">쉬움</button>
+            </div>
+
+            <!-- 함수 카드들이 동적으로 로드될 영역 -->
+            <div class="functions-grid" id="functionsGrid">
+                <!-- 함수 카드들이 JavaScript로 동적 생성됩니다 -->
+            </div>
+
+            <!-- 통계 섹션 -->
+            <div class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalFunctions">0</div>
+                    <div class="stat-label">총 함수 개수</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="displayedFunctions">0</div>
+                    <div class="stat-label">표시된 함수</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="popularFunctions">0</div>
+                    <div class="stat-label">인기 함수</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="easyFunctions">0</div>
+                    <div class="stat-label">쉬운 함수</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript 파일들 로드 -->
+    <script>
+        // 시나리오 데이터를 직접 정의 (중복 선언 방지)
+        if (typeof workScenarios === 'undefined') {
+            const workScenarios = [
+            {
+                id: "salary_calc",
+                name: "급여 계산하기",
+                icon: "💰",
+                subtitle: "기본급부터 실수령액까지",
+                description: "기본급, 각종 수당, 공제액을 계산하여 실제 수령 급여를 산출하는 방법을 학습합니다. 인사팀 필수 스킬입니다.",
+                difficulty: "medium",
+                functions: ["SUM", "IF", "VLOOKUP", "ROUND", "MAX", "MIN"],
+                functionCount: 8,
+                estimatedTime: "30분",
+                category: "hr"
+            },
+            {
+                id: "inventory_mgmt",
+                name: "재고 관리하기", 
+                icon: "📦",
+                subtitle: "입출고부터 적정재고까지",
+                description: "재고 입출고 관리, 적정 재고량 계산, 재주문 시점 알림 등 효율적인 재고 관리 시스템을 구축합니다.",
+                difficulty: "medium",
+                functions: ["SUMIF", "COUNTIF", "IF", "VLOOKUP", "TODAY", "AVERAGE"],
+                functionCount: 10,
+                estimatedTime: "45분",
+                category: "operations"
+            },
+            {
+                id: "sales_analysis",
+                name: "매출 분석하기",
+                icon: "📈", 
+                subtitle: "매출 트렌드와 성과 분석",
+                description: "월별/분기별 매출 분석, 제품별 성과 비교, 매출 예측 등 데이터 기반 영업 전략을 수립합니다.",
+                difficulty: "hard",
+                functions: ["SUMIFS", "AVERAGEIFS", "VLOOKUP", "INDEX", "MATCH", "RANK"],
+                functionCount: 12,
+                estimatedTime: "60분",
+                category: "sales"
+            },
+            {
+                id: "project_analysis", 
+                name: "프로젝트 분석하기",
+                icon: "📊",
+                subtitle: "일정관리와 진도 추적",
+                description: "프로젝트 일정 관리, 진행률 계산, 리소스 할당, 마일스톤 추적 등 체계적인 프로젝트 관리 방법을 제공합니다.",
+                difficulty: "hard",
+                functions: ["NETWORKDAYS", "DATEDIF", "IF", "COUNTIFS", "SUMIFS"],
+                functionCount: 15,
+                estimatedTime: "75분",
+                category: "pm"
+            },
+            {
+                id: "finance_analysis",
+                name: "재무 분석하기",
+                icon: "💼",
+                subtitle: "투자와 수익성 분석", 
+                description: "손익분석, ROI 계산, 현금흐름 분석, 투자 타당성 검토 등 재무 의사결정을 위한 핵심 분석 기법을 학습합니다.",
+                difficulty: "hard",
+                functions: ["PMT", "FV", "PV", "NPV", "IRR", "RATE"],
+                functionCount: 18,
+                estimatedTime: "90분",
+                category: "finance"
+            },
+            {
+                id: "game_dev_data",
+                name: "게임 개발 데이터 관리",
+                icon: "🎮",
+                subtitle: "게임 데이터 분석과 밸런싱",
+                description: "유저 데이터 분석, 게임 밸런싱, 수익 분석, KPI 추적 등 게임 개발과 운영에 필요한 데이터 관리 기법을 제공합니다.",
+                difficulty: "hard", 
+                functions: ["SUMIFS", "PERCENTILE", "CORREL", "STDEV", "RAND"],
+                functionCount: 20,
+                estimatedTime: "120분",
+                category: "gamedev"
+            }
+                    ];
+
+            const scenarioDifficulties = {
+                easy: { name: "쉬움", color: "#28a745" },
+                medium: { name: "보통", color: "#ffc107" },
+                hard: { name: "어려움", color: "#dc3545" }
+            };
+
+            // 전역으로 노출
+            window.workScenarios = workScenarios;
+            window.scenarioDifficulties = scenarioDifficulties;
+        }
+
+        // 급여 계산 시나리오 상세 데이터
+        if (typeof salaryCalcScenario === 'undefined') {
+            const salaryCalcScenario = {
+            id: "salary_calc",
+            title: "급여 계산하기",
+            description: "직원 급여를 체계적으로 계산하는 방법을 학습합니다.",
+            steps: [
+                {
+                    step: 1,
+                    title: "기본급 및 수당 계산",
+                    description: "기본급에 각종 수당을 더하여 총 지급액을 계산합니다.",
+                    example: {
+                        formula: "=SUM(B2:D2)",
+                        result: "3,350,000원",
+                        explanation: "기본급 + 식대 + 교통비를 합산하여 총 지급액을 계산합니다."
+                    }
+                }
+            ],
+            relatedFunctions: [
+                { name: "SUM", formula: "=SUM(B2:F2)", description: "기본급, 수당들을 모두 합산" },
+                { name: "IF", formula: "=IF(근무시간>40, 연장수당, 0)", description: "연장근무 여부에 따른 수당 지급" }
+            ],
+            practicalTips: [
+                { title: "급여 테이블 구성", tip: "직급별 기본급을 별도 테이블로 관리하고 VLOOKUP으로 조회하면 관리가 편리합니다." }
+            ]
+        };
+
+        // 전역으로 노출
+        window.salaryCalcScenario = salaryCalcScenario;
+        }
+
+        // 게임 개발 시나리오 상세 데이터
+        if (typeof gameDevDataScenario === 'undefined') {
+            const gameDevDataScenario = {
+            id: "game_dev_data",
+            title: "게임 개발 데이터 관리",
+            description: "게임 개발과 운영에 필요한 각종 데이터를 체계적으로 분석하고 관리하는 방법을 학습합니다.",
+            steps: [
+                {
+                    step: 1,
+                    title: "유저 리텐션 분석",
+                    description: "D1, D7, D30 리텐션율을 계산하여 게임의 재미요소를 파악합니다.",
+                    example: {
+                        formula: "=ROUND(C2/B2*100,1)",
+                        result: "80.0%",
+                        explanation: "D1 리텐션 = (다음날 복귀 유저 / 총 가입자) × 100"
+                    }
+                }
+            ],
+            relatedFunctions: [
+                { name: "COUNTIFS", formula: "=COUNTIFS(레벨,\">10\",결제여부,\"Y\")", description: "레벨 10 이상 결제 유저 수 계산" },
+                { name: "SUMIFS", formula: "=SUMIFS(매출,날짜,\">=\"&A1,플랫폼,\"iOS\")", description: "특정 기간 iOS 매출 합계" }
+            ],
+            practicalTips: [
+                { title: "리텐션 분석 자동화", tip: "가입일 기준으로 자동으로 D1, D7, D30 리텐션을 계산하는 템플릿을 만들어두세요." }
+            ]
+        };
+
+        // 전역으로 노출
+        window.gameDevDataScenario = gameDevDataScenario;
+        }
+    </script>
+    <script src="game_dev_data.js"></script>
+    <script src="salary_calc.js"></script>
+    <script src="inventory_mgmt_complete.js"></script>
+    <script src="data.js"></script>
+    <script src="functions.js"></script>    
+    <script src="main.js"></script>
+</body>
+</html>
